@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import type { Task } from '@/shared/types/global';
 import {
   loadTasks,
@@ -10,15 +10,10 @@ import {
 type TaskInput = Omit<Task, 'id' | 'createdAt' | 'updatedAt' | 'completed'>;
 
 export function useTasks(initialDate?: string) {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>(() => loadTasks());
   const [selectedDate, setSelectedDate] = useState(
     initialDate || new Date().toISOString().split('T')[0]
   );
-
-  // 初始化
-  useEffect(() => {
-    setTasks(loadTasks());
-  }, []);
 
   // 按日期过滤
   const filteredTasks = tasks.filter((task) => task.dueDate === selectedDate);

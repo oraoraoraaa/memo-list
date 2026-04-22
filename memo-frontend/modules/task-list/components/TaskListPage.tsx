@@ -4,7 +4,7 @@ import { useTasks } from '../hooks/useTasks';
 import { TaskItem } from './TaskItem';
 import { EmptyState } from './EmptyState';
 import Link from 'next/link';
-import { Plus } from 'lucide-react';
+import { CalendarDays, Plus } from 'lucide-react';
 
 export function TaskListPage() {
   const { tasks, toggleComplete } = useTasks();
@@ -16,6 +16,13 @@ export function TaskListPage() {
         <p className="text-lg font-medium text-gray-700 dark:text-gray-200">
           坚持复习，知识长青 🌱
         </p>
+        <Link
+          href="/calendar"
+          className="mt-3 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/80 px-3 py-1.5 text-sm text-blue-700 transition-colors hover:bg-white"
+        >
+          <CalendarDays className="h-4 w-4" />
+          日历视图
+        </Link>
       </div>
 
       {/* 任务列表 */}

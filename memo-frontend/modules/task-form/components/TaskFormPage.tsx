@@ -14,14 +14,15 @@ import type { Task } from '@/shared/types/global';
 
 interface TaskFormPageProps {
   task?: Task;
+  initialDate?: string;
 }
 
-export function TaskFormPage({ task }: TaskFormPageProps) {
+export function TaskFormPage({ task, initialDate }: TaskFormPageProps) {
   const router = useRouter();
   const { addTask, updateTask, deleteTask } = useTasks();
   const isEdit = !!task;
 
-  const { formData, updateField, validate, getSubmitData } = useTaskForm(task);
+  const { formData, updateField, validate, getSubmitData } = useTaskForm(task, initialDate);
 
   // 弹窗状态
   const [showTimePicker, setShowTimePicker] = useState(false);
@@ -187,20 +188,26 @@ export function TaskFormPage({ task }: TaskFormPageProps) {
             />
           </div>
 
-          {/* 日期选择（预留，当前固定为今天） */}
-          {/*
-          <div className="pt-2 pb-4">
-            <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gray-50">
-              <Calendar className="h-4 w-4 text-gray-400" />
-              <span className="text-gray-600">任务日期：今天</span>
+          {/* 日期选择 */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-2">
+              任务日期
+            </label>
+            <div className="relative">
+              <Calendar className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+              <input
+                type="date"
+                value={formData.dueDate}
+                onChange={(e) => updateField('dueDate', e.target.value)}
+                className="w-full rounded-xl border border-gray-200 bg-gray-50 py-3 pr-4 pl-11 text-gray-900 outline-none transition-all focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100"
+              />
             </div>
-            <p className="text-xs text-gray-400 mt-2 text-center">
-              {formData.frequency === 'once' 
-                ? '单次任务，仅今天有效' 
-                : `将按「${frequencyLabels[formData.frequency]}」自动重复`}
+            <p className="mt-2 text-xs text-gray-400">
+              {formData.frequency === 'once'
+                ? '单次任务会安排在所选日期'
+                : `将按「${frequencyLabels[formData.frequency]}」从所选日期开始重复`}
             </p>
           </div>
-          */}
 
           {/* 底部按钮组 */}
           <div className="pt-4 space-y-3">
