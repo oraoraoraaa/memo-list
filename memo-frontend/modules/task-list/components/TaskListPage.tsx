@@ -14,7 +14,7 @@ interface TaskListPageProps {
 export function TaskListPage({ initialDate }: TaskListPageProps) {
   const { tasks, selectedDate, setSelectedDate, toggleComplete } = useTasks(initialDate);
 
-  /*const [today] = useState(() => new Date().toISOString().split('T')[0]);
+  const [today] = useState(() => new Date().toISOString().split('T')[0]);
 
   // 日期切换
   const goToPrevDay = () => {
@@ -41,12 +41,12 @@ export function TaskListPage({ initialDate }: TaskListPageProps) {
     if (dateStr === today) label += ' · 今天';
     
     return label;
-  }, [today]);*/
+  }, [today]);
 
   return (
     <div className="container mx-auto max-w-2xl px-4 py-6">
       {/* 日期切换 */}
-      {/*<div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-4">
         <button
           onClick={goToPrevDay}
           className="p-2 rounded-full hover:bg-gray-100"
@@ -62,7 +62,7 @@ export function TaskListPage({ initialDate }: TaskListPageProps) {
         >
           <ChevronRight className="h-5 w-5 text-gray-600" />
         </button>
-      </div>*/}
+      </div>
 
       {/* 鼓励标语区域 */}
       <div className="mb-6 rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-6 text-center dark:from-blue-950 dark:to-indigo-950">
